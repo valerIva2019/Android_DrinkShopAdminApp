@@ -1,6 +1,7 @@
 package com.ydkim2110.drinkshopadminapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
+import com.ydkim2110.drinkshopadminapp.Adapter.ViewHolder.MenuViewHolder;
+import com.ydkim2110.drinkshopadminapp.Interface.IItemClickListener;
 import com.ydkim2110.drinkshopadminapp.Model.Category;
 import com.ydkim2110.drinkshopadminapp.R;
+import com.ydkim2110.drinkshopadminapp.UpdateCategoryActivity;
+import com.ydkim2110.drinkshopadminapp.Utils.Common;
 
 import java.util.List;
 
@@ -38,12 +43,24 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MenuViewHolder holder, final int position) {
         Picasso.with(mContext)
                 .load(mCategories.get(position).Link)
                 .into(holder.img_product);
 
         holder.txt_product.setText(mCategories.get(position).Name);
+
+        // implement item click
+        holder.setIItemClickListener(new IItemClickListener() {
+            @Override
+            public void onClick(View view) {
+                // assign this category to variable global
+                Common.currentCategory = mCategories.get(position);
+
+                // start new activity
+                mContext.startActivity(new Intent(mContext, UpdateCategoryActivity.class));
+            }
+        });
     }
 
     @Override
