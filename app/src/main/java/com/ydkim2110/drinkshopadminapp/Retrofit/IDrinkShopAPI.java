@@ -21,6 +21,9 @@ import retrofit2.http.Part;
  */
 public interface IDrinkShopAPI {
 
+    /*
+    CATEGORY MANAGEMENT
+     */
     @GET("getmenu.php")
     Observable<List<Category>> getMenu();
 
@@ -42,8 +45,21 @@ public interface IDrinkShopAPI {
     @POST("admin/category/delete_category.php")
     Observable<String> deleteCategory(@Field("id") String id);
 
+    /*
+    DRINK MANAGEMENT
+     */
     @FormUrlEncoded
     @POST("getdrink.php")
     Observable<List<Drink>> getDrink(@Field("menuid") String menuID);
 
+    @FormUrlEncoded
+    @POST("admin/product/add_drink.php")
+    Observable<String> addNewProduct(@Field("name") String name,
+                                     @Field("imgPath") String imgPath,
+                                     @Field("price") String price,
+                                     @Field("menuId") String menuId);
+
+    @Multipart
+    @POST("admin/product/upload_product_img.php")
+    Call<String> uploadProductFile(@Part MultipartBody.Part file);
 }

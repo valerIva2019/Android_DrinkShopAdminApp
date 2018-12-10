@@ -46,8 +46,8 @@ public class DrinkListAdapter extends RecyclerView.Adapter<DrinkListViewHolder> 
                 .load(mDrinks.get(position).Link)
                 .into(holder.mImageProduct);
 
-        holder.mDrinkName.setText(new StringBuilder("$").append(mDrinks.get(position).Name).toString());
-        holder.mPrice.setText(mDrinks.get(position).Price);
+        holder.mDrinkName.setText(mDrinks.get(position).Name);
+        holder.mPrice.setText(new StringBuilder("$").append(mDrinks.get(position).Price).toString());
 
         // event - anti crash null item click
         holder.setiItemClickListener(new IItemClickListener() {
