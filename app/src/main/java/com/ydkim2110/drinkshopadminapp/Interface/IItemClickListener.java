@@ -7,5 +7,5 @@ import android.view.View;
  * email : ydkim2110@gmail.com
  */
 public interface IItemClickListener {
-    void onClick(View view);
+    void onClick(View view, boolean isLongClick);
 }

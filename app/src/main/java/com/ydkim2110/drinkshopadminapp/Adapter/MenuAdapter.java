@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 import com.ydkim2110.drinkshopadminapp.Adapter.ViewHolder.MenuViewHolder;
+import com.ydkim2110.drinkshopadminapp.DrinkListActivity;
 import com.ydkim2110.drinkshopadminapp.Interface.IItemClickListener;
 import com.ydkim2110.drinkshopadminapp.Model.Category;
 import com.ydkim2110.drinkshopadminapp.R;
@@ -53,12 +54,19 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuViewHolder> {
         // implement item click
         holder.setIItemClickListener(new IItemClickListener() {
             @Override
-            public void onClick(View view) {
-                // assign this category to variable global
-                Common.currentCategory = mCategories.get(position);
-
-                // start new activity
-                mContext.startActivity(new Intent(mContext, UpdateCategoryActivity.class));
+            public void onClick(View view, boolean isLongClick) {
+                if (isLongClick) {
+                    // assign this category to variable global
+                    Common.currentCategory = mCategories.get(position);
+                    // start new activity
+                    mContext.startActivity(new Intent(mContext, UpdateCategoryActivity.class));
+                }
+                else {
+                    // assign this category to variable global
+                    Common.currentCategory = mCategories.get(position);
+                    // start new activity
+                    mContext.startActivity(new Intent(mContext, DrinkListActivity.class));
+                }
             }
         });
     }

@@ -1,6 +1,8 @@
 package com.ydkim2110.drinkshopadminapp.Retrofit;
 
 import com.ydkim2110.drinkshopadminapp.Model.Category;
+import com.ydkim2110.drinkshopadminapp.Model.Drink;
+
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -39,4 +41,9 @@ public interface IDrinkShopAPI {
     @FormUrlEncoded
     @POST("admin/category/delete_category.php")
     Observable<String> deleteCategory(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("getdrink.php")
+    Observable<List<Drink>> getDrink(@Field("menuid") String menuID);
+
 }

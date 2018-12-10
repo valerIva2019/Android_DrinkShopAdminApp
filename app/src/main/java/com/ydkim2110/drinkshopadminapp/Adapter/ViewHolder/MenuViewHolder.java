@@ -13,7 +13,8 @@ import com.ydkim2110.drinkshopadminapp.R;
  * Created by Kim Yongdae on 2018-12-07
  * email : ydkim2110@gmail.com
  */
-public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+    View.OnLongClickListener {
 
     public ImageView img_product;
     public TextView txt_product;
@@ -31,12 +32,17 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         txt_product = itemView.findViewById(R.id.txt_menu_name);
 
         itemView.setOnClickListener(this);
-
+        itemView.setOnLongClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        iItemClickListener.onClick(view);
+        iItemClickListener.onClick(view, false);
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+        iItemClickListener.onClick(view, true);
+        return true;
+    }
 }
