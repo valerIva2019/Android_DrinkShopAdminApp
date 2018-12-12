@@ -36,9 +36,9 @@ public class UpdateCategoryActivity extends AppCompatActivity implements UploadC
     private static final String TAG = "UpdateCategoryActivity";
     private static final int PICK_FILE_REQUEST = 1111;
 
-    private ImageView img_browser;
-    private EditText edt_name;
-    private Button btn_update, btn_delete;
+    private ImageView mImageBrowser;
+    private EditText mName;
+    private Button mUpdateBtn, mDeleteBtn;
 
     private IDrinkShopAPI mService;
     private CompositeDisposable mCompositeDisposable;
@@ -54,10 +54,10 @@ public class UpdateCategoryActivity extends AppCompatActivity implements UploadC
         Log.d(TAG, "onCreate: started");
 
         // view
-        btn_delete = findViewById(R.id.btn_delete);
-        btn_update = findViewById(R.id.btn_update);
-        edt_name = findViewById(R.id.edt_name);
-        img_browser = findViewById(R.id.img_browser);
+        mDeleteBtn = findViewById(R.id.btn_delete);
+        mUpdateBtn = findViewById(R.id.btn_update);
+        mName = findViewById(R.id.edt_name);
+        mImageBrowser = findViewById(R.id.img_browser);
 
         // api
         mService = Common.getAPI();
@@ -68,7 +68,7 @@ public class UpdateCategoryActivity extends AppCompatActivity implements UploadC
         displayData();
 
         // event
-        img_browser.setOnClickListener(new View.OnClickListener() {
+        mImageBrowser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivityForResult(Intent.createChooser(FileUtils.createGetContentIntent(),
@@ -76,14 +76,14 @@ public class UpdateCategoryActivity extends AppCompatActivity implements UploadC
             }
         });
 
-        btn_update.setOnClickListener(new View.OnClickListener() {
+        mUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateCategory();
             }
         });
 
-        btn_delete.setOnClickListener(new View.OnClickListener() {
+        mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 deleteCategory();
@@ -114,9 +114,9 @@ public class UpdateCategoryActivity extends AppCompatActivity implements UploadC
     private void updateCategory() {
         Log.d(TAG, "updateCategory: called");
 
-        if (!edt_name.getText().toString().isEmpty()) {
+        if (!mName.getText().toString().isEmpty()) {
             mCompositeDisposable.add(mService.updateCategory(Common.currentCategory.getID(),
-                    edt_name.getText().toString(), uploaded_img_path)
+                    mName.getText().toString(), uploaded_img_path)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new Consumer<String>() {
@@ -139,9 +139,9 @@ public class UpdateCategoryActivity extends AppCompatActivity implements UploadC
         if (Common.currentCategory != null) {
             Picasso.with(this)
                     .load(Common.currentCategory.getLink())
-                    .into(img_browser);
+                    .into(mImageBrowser);
 
-            edt_name.setText(Common.currentCategory.getName());
+            mName.setText(Common.currentCategory.getName());
 
             uploaded_img_path = Common.currentCategory.getLink();
         }
@@ -156,7 +156,7 @@ public class UpdateCategoryActivity extends AppCompatActivity implements UploadC
                 if (data != null) {
                     selectedUri = data.getData();
                     if (selectedUri != null && !selectedUri.getPath().isEmpty()) {
-                        img_browser.setImageURI(selectedUri);
+                        mImageBrowser.setImageURI(selectedUri);
                         uploadFileToServer();
                     }
                     else {

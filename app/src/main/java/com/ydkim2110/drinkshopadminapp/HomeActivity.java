@@ -270,6 +270,8 @@ public class HomeActivity extends AppCompatActivity
 
     private void displayMenuList(List<Category> categories) {
         Log.d(TAG, "displayMenuList: called");
+
+        Common.menuList = categories;
         MenuAdapter adapter =new MenuAdapter(this, categories);
         mRecyclerViewMenu.setAdapter(adapter);
     }

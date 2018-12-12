@@ -1,6 +1,7 @@
 package com.ydkim2110.drinkshopadminapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,8 @@ import com.ydkim2110.drinkshopadminapp.Adapter.ViewHolder.DrinkListViewHolder;
 import com.ydkim2110.drinkshopadminapp.Interface.IItemClickListener;
 import com.ydkim2110.drinkshopadminapp.Model.Drink;
 import com.ydkim2110.drinkshopadminapp.R;
+import com.ydkim2110.drinkshopadminapp.UpdateProductActivity;
+import com.ydkim2110.drinkshopadminapp.Utils.Common;
 
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class DrinkListAdapter extends RecyclerView.Adapter<DrinkListViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DrinkListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DrinkListViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
 
         Picasso.with(mContext)
@@ -53,7 +56,8 @@ public class DrinkListAdapter extends RecyclerView.Adapter<DrinkListViewHolder> 
         holder.setiItemClickListener(new IItemClickListener() {
             @Override
             public void onClick(View view, boolean isLongClick) {
-
+                Common.currentDrink = mDrinks.get(position);
+                mContext.startActivity(new Intent(mContext, UpdateProductActivity.class));
             }
         });
     }

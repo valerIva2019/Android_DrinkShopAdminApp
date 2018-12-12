@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UpdateCategoryActivity" />
-        <activity android:name=".DrinkListActivity"></activity>
+        <activity android:name=".DrinkListActivity" />
+        <activity android:name=".UpdateProductActivity"></activity>
     </application>
 
 </manifest>

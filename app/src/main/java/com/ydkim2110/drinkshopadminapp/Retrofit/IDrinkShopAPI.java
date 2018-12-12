@@ -62,4 +62,17 @@ public interface IDrinkShopAPI {
     @Multipart
     @POST("admin/product/upload_product_img.php")
     Call<String> uploadProductFile(@Part MultipartBody.Part file);
+
+    @FormUrlEncoded
+    @POST("admin/product/update_product.php")
+    Observable<String> updateProduct(@Field("id") String id,
+                                      @Field("name") String name,
+                                      @Field("imgPath") String imgPath,
+                                      @Field("price") String price,
+                                      @Field("menuId") String menuId);
+
+    @FormUrlEncoded
+    @POST("admin/product/delete_product.php")
+    Observable<String> deleteProduct(@Field("id") String id);
+
 }
